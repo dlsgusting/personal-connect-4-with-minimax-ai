@@ -1,4 +1,4 @@
-from BoardFile import display_board, drop_piece
+from BoardFile import *
 running = True
 player = -1
 # 1 is ai -1 is human
@@ -46,6 +46,8 @@ def choose_mode():
             print("Not a valid mode1, choose again")
 
     return mode1
+
+
 
 selected = choose_mode()
 
