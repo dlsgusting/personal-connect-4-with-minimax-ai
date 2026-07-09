@@ -9,7 +9,7 @@ board = [
     [".", ".", ".", ".", ".", ".", "."],
     [".", ".", ".", ".", ".", ".", "."],
     [".", ".", ".", ".", ".", ".", "."],
-    [".", ".", ".", ".", ".", ".", "."],
+    ["X", ".", ".", ".", ".", ".", "."],
 ]
 
 def display_board(board):
@@ -49,16 +49,19 @@ def drop_piece(board, player):
 
     col -=1
 
-    for i in range(5,0,-1):
+    for i in range(5,-1,-1):
         if board[i][col] == ".":
             if player == 1:
-                board[i][col] == "X"
-                print("this worked")
+                board[i][col] = "X"
+                break
             else:
-                board[i][col] == "O"
+                board[i][col] = "O"
+                break
 
 
 while running:
     display_board(board)
     drop_piece(board, player)
+    display_board(board)
+    break
     
