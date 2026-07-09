@@ -1,4 +1,7 @@
 running = True
+player = 1
+# 1 is ai -1 is human
+# 1 is p2, -1 is p1
 
 board = [
     [".", ".", ".", ".", ".", ".", "."],
@@ -13,7 +16,7 @@ def display_board(board):
     print("\n           CONNECT FOUR\n")
     print("    1   2   3   4   5   6   7")
 
-    top = "  ┌───┬───┬───┬───┬───┬───┬───┐"
+    top =    "  ┌───┬───┬───┬───┬───┬───┬───┐"
     middle = "  ├───┼───┼───┼───┼───┼───┼───┤"
     bottom = "  └───┴───┴───┴───┴───┴───┴───┘"
 
@@ -30,6 +33,32 @@ def display_board(board):
 
     print(bottom)
 
+def drop_piece(board, player):
+    valid = [1,2,3,4,5,6,7]
+    while True:
+        try:
+            print("Choose a column 1-7")
+            col = int(input())
+
+            if col not in valid:
+                print("Not a valid column, choose again")
+            else:
+                break
+        except ValueError:
+            print("Not a valid column, choose again")
+
+    col -=1
+
+    for i in range(5,0,-1):
+        if board[i][col] == ".":
+            if player == 1:
+                board[i][col] == "X"
+                print("this worked")
+            else:
+                board[i][col] == "O"
+
+
 while running:
     display_board(board)
-    break
+    drop_piece(board, player)
+    
