@@ -40,8 +40,8 @@ def drop_piece(board, player):
             print("Choose a column 1-7")
             col = int(input())
 
-            if col not in valid:
-                print("Not a valid column, choose again")
+            if col not in valid or board[0][col-1] == "X" or board[0][col-1] == "O":
+                print("Column full or invalid column")
             else:
                 break
         except ValueError:
@@ -76,13 +76,14 @@ mode = {
 }
 
 def choose_mode():
+    valid = [1]
     while True:
         try:
             print("Choose a mode")
             print("1/vs Human, 2/vs AI")
             mode1 = int(input())
 
-            if mode1 not in mode:
+            if mode1 not in valid:
                 print("Not a valid mode1, choose again")
             else:
                 break
