@@ -68,7 +68,7 @@ def diag2(board, row, col):
     else:
         return False
 
-def check_win(board):
+def check_win(board, player):
     for row in range(0,6):
         for col in range(0,7):
             if board[row][col] == ".":
