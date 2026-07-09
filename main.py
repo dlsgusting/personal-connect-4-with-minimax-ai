@@ -1,5 +1,5 @@
 running = True
-player = 1
+player = -1
 # 1 is ai -1 is human
 # 1 is p2, -1 is p1
 
@@ -58,10 +58,44 @@ def drop_piece(board, player):
                 board[i][col] = "O"
                 break
 
+def pvp_turn(board):
+    global player
+    if player == 1:
+        display_board(board)
+        print("Player 2 turn")
+        drop_piece(board, player)
+    else:
+        display_board(board)
+        print("Player 1 turn")
+        drop_piece(board, player)
+
+    player = -player
+
+mode = {
+    1:pvp_turn
+}
+
+def choose_mode():
+    while True:
+        try:
+            print("Choose a mode")
+            print("1/vs Human, 2/vs AI")
+            mode1 = int(input())
+
+            if mode1 not in mode:
+                print("Not a valid mode1, choose again")
+            else:
+                break
+        except ValueError:
+            print("Not a valid mode1, choose again")
+
+    return mode1
+
+selected = choose_mode()
 
 while running:
-    display_board(board)
-    drop_piece(board, player)
-    display_board(board)
-    break
+    mode[selected](board)
+
+
+
     
