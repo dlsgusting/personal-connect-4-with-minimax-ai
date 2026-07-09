@@ -15,14 +15,14 @@ board = [
 
 def pvp_turn(board):
     global player
+    global running
     if player == 1:
         display_board(board)
         print("Player 2 turn")
         drop_piece(board, player)
         if check_win(board, player):
             display_board(board)
-            print("Player 2 wins")
-            global running
+            print("Player 2 wins!")
             running = False
     else:
         display_board(board)
@@ -30,8 +30,8 @@ def pvp_turn(board):
         drop_piece(board, player)
         if check_win(board, player):
             display_board(board)
-            print("Player 1 wins")
-            global running
+            print("Player 1 wins!")
+            
             running = False
 
     player = -player
@@ -56,8 +56,6 @@ def choose_mode():
             print("Not a valid mode1, choose again")
 
     return mode1
-
-
 
 selected = choose_mode()
 
