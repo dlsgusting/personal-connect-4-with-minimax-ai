@@ -12,10 +12,21 @@ board = [
     [".", ".", ".", ".", ".", ".", "."],
     [".", ".", ".", ".", ".", ".", "."],
     [".", ".", ".", ".", ".", ".", "."],
-    ["X", ".", ".", ".", ".", ".", "."],
+    [".", ".", ".", ".", ".", ".", "."],
 ]
 
+
 def random_ai(board):
+    global running
+    display_board(board)
+    drop_piece(board, -1)
+
+    if check_win(board):
+        display_board(board)
+        print("You win!")
+        running = False
+        return
+    
     valid_cols = []
 
     for i in range(7):
@@ -27,7 +38,13 @@ def random_ai(board):
     for i in range(5, -1, -1):
         if board[i][col] == ".":
             board[i][col] = "X" 
-            return
+            break
+
+    if check_win(board):
+        display_board(board)
+        print("AI wins!")
+        running = False
+        return
 
 def ai_turn(board):
     valid_cols = []
@@ -86,11 +103,12 @@ def pvp_turn(board):
 
 mode = {
     1:pvp_turn,
-    2:random_ai
+    2:random_ai,
+    3:ai_turn
 }
 
 def choose_mode():
-    valid = [1]
+    valid = [1,2,3]
     while True:
         try:
             print("Choose a mode")

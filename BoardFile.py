@@ -26,8 +26,8 @@ def drop_piece(board, player):
             print("Choose a column 1-7")
             col = int(input())
 
-            if col not in valid or board[0][col-1] == "X" or board[0][col-1] == "O":
-                print("Column full or invalid column")
+            if col not in valid or board[0][col-1] != ".":
+                print("Column full or invalid")
             else:
                 break
         except ValueError:
@@ -68,7 +68,7 @@ def diag2(board, row, col):
     else:
         return False
 
-def check_win(board, player):
+def check_win(board):
     for row in range(0,6):
         for col in range(0,7):
             if board[row][col] == ".":
