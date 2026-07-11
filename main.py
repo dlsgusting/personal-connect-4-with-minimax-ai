@@ -1,4 +1,5 @@
 from BoardFile import *
+from minimax import minimax
 import random
 
 running = True
@@ -14,19 +15,10 @@ board = [
     [".", ".", ".", ".", ".", ".", "."],
     [".", ".", ".", ".", ".", ".", "."],
 ]
+    
 
 
 def random_ai(board):
-    global running
-    display_board(board)
-    drop_piece(board, -1)
-
-    if check_win(board):
-        display_board(board)
-        print("You win!")
-        running = False
-        return
-    
     valid_cols = []
 
     for i in range(7):
@@ -61,7 +53,7 @@ def ai_turn(board):
             if board[row][col] == ".":
                 board[row][col] = "X"
 
-                score = minimax(board, -1)
+                score = minimax(board, -1,4)
 
                 board[row][col] = "."
 
@@ -129,8 +121,28 @@ def choose_mode():
 selected = choose_mode()
 
 while running:
-    mode[selected](board)
+    if selected == 1:
+        pvp_turn(board)
 
+    elif selected == 2 or selected == 3:
+        display_board(board)
+        drop_piece(board, -1)
 
+        if check_win(board):
+            display_board(board)
+            print("You win!")
+            running = False
+            break
+
+        if selected == 2:
+            random_ai(board)
+        else:
+            ai_turn(board)
+
+        if check_win(board):
+            display_board(board)
+            print("AI wins!")
+            running = False
+            break
 
     
