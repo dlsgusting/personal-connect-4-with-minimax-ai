@@ -30,31 +30,36 @@ def random_ai(board):
             return
 
 def ai_turn(board):
-    best_score = -999
+    valid_cols = []
+
+    for col in range(7):
+        if board[0][col] == ".":
+            valid_cols.append(col)
+
+    best_score = float("-inf")
     best_move = None
 
-    for pos in range(len(board)):
-        if board[pos] == "?":
-            board[pos] = "X"
-            score = minimax(board, -1)
-            board[pos] = "?"
-            
-            if score > best_score:
-                best_score = score
-                best_move = pos
+    for col in valid_cols:
+        for row in range(5, -1, -1):
+            if board[row][col] == ".":
+                board[row][col] = "X"
+
+                score = minimax(board, -1)
+
+                board[row][col] = "."
+
+                if score > best_score:
+                    best_score = score
+                    best_move = col
+
+                break
 
     if best_move is not None:
-        board[best_move] = "X"
+        for row in range(5, -1, -1):
+            if board[row][best_move] == ".":
+                board[row][best_move] = "X"
+                break
 
-    for i in range(5,-1,-1):
-        for i in range(7)
-            if board[i][col] == ".":
-                if player == 1:
-                    board[i][col] = "X"
-                    break
-                else:
-                    board[i][col] = "O"
-                    break
 
 def pvp_turn(board):
     global player
@@ -80,7 +85,8 @@ def pvp_turn(board):
     player = -player
 
 mode = {
-    1:pvp_turn
+    1:pvp_turn,
+    2:random_ai
 }
 
 def choose_mode():
@@ -90,6 +96,7 @@ def choose_mode():
             print("Choose a mode")
             print("1. vs Human")
             print("2. vs random AI")
+            print("3. vs Minimax AI")
             mode1 = int(input())
 
             if mode1 not in valid:
@@ -104,7 +111,6 @@ def choose_mode():
 selected = choose_mode()
 
 while running:
-
     mode[selected](board)
 
 
