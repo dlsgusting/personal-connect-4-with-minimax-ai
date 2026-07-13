@@ -83,15 +83,15 @@ def score_position(board):
             ]
             score += evaluate_window(diag2)
 
-return score
+    return score
 
 def minimax(board, current_turn, depth):
     result = check_win(board)
 
     if result == "ai":
-        return 1
+        return 1000000
     elif result == "player":
-        return -1
+        return -1000000
     elif result == 0:
         return 0
 
