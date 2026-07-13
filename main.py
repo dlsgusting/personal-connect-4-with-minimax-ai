@@ -53,7 +53,7 @@ def ai_turn(board):
             if board[row][col] == ".":
                 board[row][col] = "X"
 
-                score = minimax(board, -1, 4, float("-inf"), float("inf"))
+                score = minimax(board, -1, 5, float("-inf"), float("inf"))
 
                 board[row][col] = "."
 
@@ -93,10 +93,14 @@ def pvp_turn(board):
 
     player = -player
 
+def end():
+    global running
+    running = False
 mode = {
     1:pvp_turn,
     2:random_ai,
-    3:ai_turn
+    3:ai_turn,
+    4:end
 }
 
 def choose_mode():
@@ -144,5 +148,7 @@ while running:
             print("AI wins!")
             running = False
             break
+    elif selected == 4:
+        end()
 
     
