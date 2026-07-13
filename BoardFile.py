@@ -54,7 +54,7 @@ def check_win(board):
             piece = board[row][col]
 
             if piece != "." and all(board[row][col + i] == piece for i in range(4)):
-                return True
+                return piece
 
     # Vertical
     for row in range(rows - 3):
@@ -62,7 +62,7 @@ def check_win(board):
             piece = board[row][col]
 
             if piece != "." and all(board[row + i][col] == piece for i in range(4)):
-                return True
+                return piece
 
     # Diagonal down right
     for row in range(rows - 3):
@@ -70,7 +70,7 @@ def check_win(board):
             piece = board[row][col]
 
             if piece != "." and all(board[row + i][col + i] == piece for i in range(4)):
-                return True
+                return piece
 
     # Diagonal up right
     for row in range(3, rows):
@@ -78,7 +78,7 @@ def check_win(board):
             piece = board[row][col]
 
             if piece != "." and all(board[row - i][col + i] == piece for i in range(4)):
-                return True
+                return piece
 
     return False
 

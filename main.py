@@ -1,5 +1,5 @@
 from BoardFile import *
-from minimax import minimax
+from minimax import *
 import random
 
 running = True
@@ -42,7 +42,6 @@ def ai_turn(board):
     valid_cols = []
 
     for col in range(7):
-        if board[0][col] == ".":
             valid_cols.append(col)
 
     best_score = float("-inf")

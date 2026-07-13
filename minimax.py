@@ -88,12 +88,10 @@ def score_position(board):
 def minimax(board, current_turn, depth):
     result = check_win(board)
 
-    if result == "ai":
+    if result == "X":
         return 1000000
-    elif result == "player":
+    elif result == "O":
         return -1000000
-    elif result == 0:
-        return 0
 
     if depth == 0:
         return score_position(board)
@@ -103,6 +101,9 @@ def minimax(board, current_turn, depth):
     for col in range(7):
         if board[0][col] == ".":
             valid_cols.append(col)
+
+    if not valid_cols:
+        return 0
 
     if current_turn == 1:
         best_score = float("-inf")
