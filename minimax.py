@@ -85,13 +85,13 @@ def score_position(board):
 
     return score
 
-def minimax(board, current_turn, depth):
+def minimax(board, current_turn, depth, alpha, beta):
     result = check_win(board)
 
     if result == "X":
-        return 1000000
+        return 1_000_000 + depth
     elif result == "O":
-        return -1000000
+        return -1_000_000 - depth
 
     if depth == 0:
         return score_position(board)
@@ -113,11 +113,21 @@ def minimax(board, current_turn, depth):
                 if board[row][col] == ".":
                     board[row][col] = "X"
 
-                    score = minimax(board, -1, depth - 1)
-                    best_score = max(score, best_score)
-
+                    score = minimax(
+                        board,
+                        -1,
+                        depth - 1,
+                        alpha,
+                        beta
+                    )
+                    
                     board[row][col] = "."
+                    best_score = max(best_score, score)
+                    alpha = max(alpha, best_score)
+
                     break
+            if alpha >= beta:
+                break
 
         return best_score
 
@@ -129,12 +139,21 @@ def minimax(board, current_turn, depth):
                 if board[row][col] == ".":
                     board[row][col] = "O"
 
-                    score = minimax(board, 1, depth - 1)
-                    best_score = min(score, best_score)
+                    score = minimax(
+                        board,
+                        1,
+                        depth - 1,
+                        alpha,
+                        beta
+                    )
 
                     board[row][col] = "."
-                    break
+                    best_score = min(score, best_score)
+                    beta = min(beta, best_score)
 
+                    break
+            if alpha >= beta:
+                break
         return best_score
 
 

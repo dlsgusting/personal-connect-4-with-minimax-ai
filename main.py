@@ -42,6 +42,7 @@ def ai_turn(board):
     valid_cols = []
 
     for col in range(7):
+        if board[0][col] == ".":
             valid_cols.append(col)
 
     best_score = float("-inf")
@@ -52,7 +53,7 @@ def ai_turn(board):
             if board[row][col] == ".":
                 board[row][col] = "X"
 
-                score = minimax(board, -1,4)
+                score = minimax(board, -1, 4, float("-inf"), float("inf"))
 
                 board[row][col] = "."
 
