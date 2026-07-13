@@ -1,7 +1,36 @@
 from BoardFile import *
 
-def evaluate_window(window, ai_piece, player_piece):
-    return
+def evaluate_window(window):
+    score = 0
+
+    # X scores
+    if window.count("X") == 4:
+        score += 100000
+
+    elif window.count("X") == 3 and window.count(".") == 1:
+        score += 100
+
+    elif window.count("X") == 2 and window.count(".") == 2:
+        score += 10
+
+    elif window.count("X") == 1 and window.count(".") == 3:
+        score += 1
+
+
+    # O scores
+    if window.count("O") == 4:
+        score -= 100000
+
+    elif window.count("O") == 3 and window.count(".") == 1:
+        score -= 120
+
+    elif window.count("O") == 2 and window.count(".") == 2:
+        score -= 10
+
+    elif window.count("O") == 1 and window.count(".") == 3:
+        score -= 1
+
+    return score
     
 
 def score_position(board):
@@ -11,30 +40,50 @@ def score_position(board):
     score = 0
 
     # Horizontal
-    hori = []
     for row in range(rows):
         for col in range(cols - 3):
-            hori.append(board[row][col])
-            score += evaluate_window(hori, "X", "O")
-            hori = []
+            hori = [
+                board[row][col],
+                board[row][col + 1],
+                board[row][col + 2],
+                board[row][col + 3]
+            ]
+            score += evaluate_window(hori)
 
     # Vertical
-    vert = []
     for row in range(rows - 3):
         for col in range(cols):
-            vert.append(board[row][col])
+            vert = [
+                board[row][col],
+                board[row + 1][col],
+                board[row + 2][col],
+                board[row + 3][col]
+            ]
+            score += evaluate_window(vert)
 
     # Diagonal down right
-    diag1 = []
     for row in range(rows - 3):
         for col in range(cols - 3):
-            diag1.append(board[row][col])
+            diag1 = [
+                board[row][col],
+                board[row + 1][col + 1],
+                board[row + 2][col + 2],
+                board[row + 3][col + 3]
+            ]
+            score += evaluate_window(diag1)
 
     # Diagonal up right
-    diag2 = []
     for row in range(3, rows):
         for col in range(cols - 3):
-            diag2.append(board[row][col])
+            diag2 = [
+                board[row][col],
+                board[row - 1][col + 1],
+                board[row - 2][col + 2],
+                board[row - 3][col + 3]
+            ]
+            score += evaluate_window(diag2)
+
+return score
 
 def minimax(board, current_turn, depth):
     result = check_win(board)
@@ -47,7 +96,7 @@ def minimax(board, current_turn, depth):
         return 0
 
     if depth == 0:
-        return 0
+        return score_position(board)
 
     valid_cols = []
 
