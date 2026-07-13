@@ -19,6 +19,9 @@ def display_board(board):
 
     print(bottom)
 
+def is_board_full(board):
+    return all(board[0][col] != "." for col in range(7))
+
 def drop_piece(board, player):
     valid = [1,2,3,4,5,6,7]
     while True:

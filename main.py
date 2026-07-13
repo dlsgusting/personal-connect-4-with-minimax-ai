@@ -25,18 +25,15 @@ def random_ai(board):
         if board[0][i] == ".":
             valid_cols.append(i)
 
+    if not valid_cols:
+        return
+
     col = random.choice(valid_cols)
 
     for i in range(5, -1, -1):
         if board[i][col] == ".":
-            board[i][col] = "X" 
+            board[i][col] = "X"
             break
-
-    if check_win(board):
-        display_board(board)
-        print("AI wins!")
-        running = False
-        return
 
 def ai_turn(board):
     valid_cols = []
@@ -73,22 +70,32 @@ def ai_turn(board):
 def pvp_turn(board):
     global player
     global running
+
     if player == 1:
         display_board(board)
         print("Player 2 turn")
         drop_piece(board, player)
-        if check_win(board, player):
+
+        if check_win(board):
             display_board(board)
             print("Player 2 wins!")
+            running = False
+        elif is_board_full(board):
+            display_board(board)
+            print("Draw!")
             running = False
     else:
         display_board(board)
         print("Player 1 turn")
         drop_piece(board, player)
-        if check_win(board, player):
+
+        if check_win(board):
             display_board(board)
             print("Player 1 wins!")
-            
+            running = False
+        elif is_board_full(board):
+            display_board(board)
+            print("Draw!")
             running = False
 
     player = -player
@@ -96,6 +103,7 @@ def pvp_turn(board):
 def end():
     global running
     running = False
+
 mode = {
     1:pvp_turn,
     2:random_ai,
@@ -138,6 +146,12 @@ while running:
             running = False
             break
 
+        if is_board_full(board):
+            display_board(board)
+            print("Draw!")
+            running = False
+            break
+
         if selected == 2:
             random_ai(board)
         else:
@@ -148,6 +162,13 @@ while running:
             print("AI wins!")
             running = False
             break
+
+        if is_board_full(board):
+            display_board(board)
+            print("Draw!")
+            running = False
+            break
+
     elif selected == 4:
         end()
 
